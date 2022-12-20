@@ -1,0 +1,72 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+  displayName: NuGet Installer
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloudConnection'
+    organization: 'epizzahub'
+    scannerMode: 'MSBuild'
+    projectKey: 'ePizzaHub_Books.API'
+    projectName: 'Books.API' 
+
+- task: NuGetCommand@2
+  displayName: NuGet Restore
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  displayName: Build Solution
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    
+
+- task: DotNetCoreCLI@2
+  displayName: Unit Test
+  inputs:
+    command: 'test'
+    projects: '**/*[Tt]est*/*.csproj'
+    publishTestResults: true
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./TestCoverage/'
+    
+- task: SonarCloudAnalyze@1 
+  displayName: Run SonarCloud Analyzer
+- task: PublishBuildArtifacts@1
+  displayName: Publish Build Artifacts
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+- task: PublishCodeCoverageResults@1
+  displayName: Publish code coverage results
+  inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(build.sourcesdirectory)/**/TestCoverage/coverage.cobertura.xml'
+        failIfCoverageEmpty: true
+- task: WhiteSource@21
+  displayName: Mend Bolt
+  
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
+
+

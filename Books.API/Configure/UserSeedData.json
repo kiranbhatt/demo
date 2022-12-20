@@ -1,0 +1,79 @@
+[
+  {
+    "UserName": "SuperAdmin",
+    "NormalizedUserName": "SuperAdmin",
+    "Email": "superadmin@gmail.com",
+    "NormalizedEmail": "superadmin@gmail.com",
+    "EmailConfirmed": true,
+    "PasswordHash": "Dotvik@987",
+    "PhoneNumber": "87878667",
+    "phoneNumberConfirmed": true,
+    "Name": "SuperAdmin",
+    "DateOfBirth": "1989-12-02",
+    "KnownAs": "Portal Admin",
+    "Gender": "Male",
+    "Introducation": "This is super admin",
+    "LookingFor": "Female",
+    "Interests": "Reading",
+    "City": "New Delhi",
+    "Country": "India",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/women/31.jpg",
+        "IsMain": true
+      }
+    ]
+  },
+
+  {
+    "UserName": "Admin",
+    "NormalizedUserName": "Admin",
+    "Email": "admin@gmail.com",
+    "NormalizedEmail": "admin@gmail.com",
+    "EmailConfirmed": true,
+    "PasswordHash": "Dotvik@987",
+    "PhoneNumber": "87878667",
+    "phoneNumberConfirmed": true,
+    "Name": "Admin",
+    "DateOfBirth": "1989-12-02",
+    "KnownAs": "Portal Admin",
+    "Gender": "Male",
+    "Introducation": "This is admin",
+    "LookingFor": "Female",
+    "Interests": "Reading",
+    "City": "New Delhi",
+    "Country": "India",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/women/30.jpg",
+        "IsMain": true
+      }
+    ]
+  },
+
+  {
+    "UserName": "User",
+    "NormalizedUserName": "User",
+    "Email": "user@gmail.com",
+    "NormalizedEmail": "user@gmail.com",
+    "EmailConfirmed": true,
+    "PasswordHash": "Dotvik@987",
+    "PhoneNumber": "87878667",
+    "phoneNumberConfirmed": true,
+    "Name": "User",
+    "DateOfBirth": "1989-12-02",
+    "KnownAs": "Portal Admin",
+    "Gender": "Male",
+    "Introducation": "This is user",
+    "LookingFor": "Female",
+    "Interests": "Reading",
+    "City": "New Delhi",
+    "Country": "India",
+    "Photos": [
+      {
+        "Url": "https://randomuser.me/api/portraits/women/31.jpg",
+        "IsMain": true
+      }
+    ]
+  }
+]

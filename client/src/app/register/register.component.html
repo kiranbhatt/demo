@@ -1,0 +1,40 @@
+<form [formGroup]="registerForm" (ngSubmit)="regsiter()">
+
+    <h2 class="text-center text-primary">Sign up</h2>
+    <hr>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" class="form-control" formControlName="username" placeholder="Username" />
+        <span style="color: red" *ngIf="userValidation && userValidation.invalid && userValidation.touched">This field
+            is invalid</span>
+
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" formControlName="password" placeholder="Password" />
+        <span style="color: red"
+            *ngIf="passwordValidation && passwordValidation.invalid && passwordValidation.touched">This field
+            is invalid</span>
+
+    </div>
+
+    <div class="form-group">
+        <label>Who is your favourite user </label>
+
+        <select class="form-select">
+            <option *ngFor="let user of inputUsersFromHomeComponent" [ngValue]="user.userName">{{user.userName}}
+            </option>
+        </select>
+    </div>
+
+    <hr>
+
+    <div class="form-group text-center">
+        <button class="btn btn-success mr-2" [disabled]="registerForm.invalid" type="submit">Register</button>
+
+        <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button>
+
+        <!-- <a routerLink="../register" class="btn btn-link">Register</a> -->
+    </div>
+</form>
