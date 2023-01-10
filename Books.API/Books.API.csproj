@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.13.1" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.20.0" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
@@ -30,7 +31,7 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
-
+     
   <ItemGroup>
     <Folder Include="images\" />
   </ItemGroup>
@@ -38,12 +39,9 @@
   <ItemGroup>
     <None Include="Configure\BookSeedData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
+    </None>                                     
+  </ItemGroup>                                                                               
   <ItemGroup>
-    <ProjectReference Include="..\Book.Core\Books.Core.csproj" />
-  </ItemGroup>
-
-
-</Project>
+    <ProjectReference Include="..\Book.Core\Books.Core.csproj" />                 
+  </ItemGroup>                                                  
+</Project>                                                     

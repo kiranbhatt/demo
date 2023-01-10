@@ -40,7 +40,7 @@ namespace Books.API
 
                     var bookContext = services.GetRequiredService<BookContext>();
                     await bookContext.Database.MigrateAsync(); // Apply pending migration or create DB.
-                    await Seed.SeedBooks(bookContext);
+                    
 
                     await Seed.SeedUsers(bookContext);
 

@@ -34,11 +34,11 @@ namespace Books.API.BackgroundJob
             {
                 using (var scope = _serviceProvider.CreateScope())
                 {
-                    var scopeService = scope.ServiceProvider.GetRequiredService<IBooksServive>();
+                    // var scopeService = scope.ServiceProvider.GetRequiredService<IBooksServive>();
 
-                    var result = await scopeService.GetBooksAsync();
+                    // var result = await scopeService.GetBooksAsync();
 
-                    _logger.LogInformation("BackgroundService executed data sucessfully --- " + result.Count());
+                    // _logger.LogInformation("BackgroundService executed data sucessfully --- " + result.Count());
 
                     await Task.Delay(TimeSpan.FromHours(1), stoppingToken); // Better than timer if you want application do its task after every 10 seconds.
 

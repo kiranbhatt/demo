@@ -6,13 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-
+using System.Threading.Tasks;  
+using Microsoft.AspNetCore.Http;
+using Books.API.Entities;
+using System.Security.Claims;
+using AutoMapper;
 namespace Books.API.Controllers
 {
     [Route("api/v{version:apiVersion}/users")]
     [ApiVersion("1.0")]
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public class UsersController : BaseApiController
     {
         private readonly IUsersService _usersService;
@@ -20,8 +23,11 @@ namespace Books.API.Controllers
         protected APIResponse _aPIResponse;
 
 
-        public UsersController(IUsersService usersService, ILogger<UsersController> logger)
+        public UsersController(IUsersService usersService,
+        ILogger<UsersController> logger)
         {
+
+
             _usersService = usersService ??
                 throw new ArgumentNullException(nameof(usersService));
             _logger = logger;
@@ -61,6 +67,23 @@ namespace Books.API.Controllers
             _aPIResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
 
             return Ok(_aPIResponse);
+        }
+
+        [HttpPost("add-photo")]
+        public async Task<ActionResult<APIResponse>> AddPhoto(IFormFile file)
+        {
+            var isUpdated = await _usersService.AddPhoto(file);
+
+            if (isUpdated)
+            {
+                _aPIResponse.StatusCode = System.Net.HttpStatusCode.NoContent;
+                _aPIResponse.IsSuccess = true; 
+            }
+
+            _aPIResponse.StatusCode = System.Net.HttpStatusCode.NotFound;
+
+            return Ok(_aPIResponse);                    
+
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Books.Core.Repositories.Abstract
 {
     public interface IUnitOfWork
     {
-        IBooksRepository BooksRepository { get; }
+       
         IRolesRepository RolesRepository { get; }
         IUserRepository UserRepository { get; }
         Task<bool> Complete();

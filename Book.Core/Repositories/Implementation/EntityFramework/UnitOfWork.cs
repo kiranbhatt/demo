@@ -28,7 +28,7 @@ namespace Books.Core.Repositories.Implementation.EntityFramework
             _configuration = configuration;
             _userManager = userManager;
         }
-        public IBooksRepository BooksRepository => new BooksRepository(_dbContext, _logger);
+      
 
         public IRolesRepository RolesRepository => new RolesRepository(_dbContext, _logger);
 

@@ -24,16 +24,15 @@ namespace Books.API.Configure
         {
             // http request should be AddScoped
 
-            services.AddScoped<IBooksServive, BooksServive>();
+           
             services.AddScoped<IUsersService, UsersService>();
 
             services.AddScoped<IRolesService, RolesService>();
 
             services.AddScoped<ITokenService, TokenService>();
-
-        }
-
-
+            services.AddScoped<IPhotoService, PhotoService>();                
+                      
+        }      
         public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(cfg =>

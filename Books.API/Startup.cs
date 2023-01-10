@@ -2,6 +2,7 @@ using Books.API.BackgroundJob;
 using Books.API.Configure;
 using Books.API.Contexts;
 using Books.API.Entities;
+using Books.API.Helpers;
 using Books.API.Middlewares;
 using Books.Core.Configure;
 using Books.Core.Entities;
@@ -86,8 +87,9 @@ namespace Books.API
                 option.GroupNameFormat = "'v'VVV";
                 option.SubstituteApiVersionInUrl = true; // This will show the version in URL
             });
+            services.Configure<CloudinarySetting>(Configuration.GetSection("CloudinarySetting"));
 
-        }
+        }                                 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

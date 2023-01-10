@@ -19,6 +19,8 @@ namespace Books.API.Services
     public class UsersService : IUsersService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPhotoService _photoService;
+
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
@@ -28,16 +30,19 @@ namespace Books.API.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UsersService(IUnitOfWork unitOfWork, IMapper mapper, UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationRole> roleManager, IHttpContextAccessor httpContextAccessor)
+            RoleManager<ApplicationRole> roleManager, IHttpContextAccessor httpContextAccessor
+            , IPhotoService photoService)
         {
             _unitOfWork = unitOfWork;
-
+            _photoService = photoService;
             _mapper = mapper ??
                 throw new ArgumentNullException(nameof(mapper));
             _userManager = userManager;
             _roleManager = roleManager;
             _httpContextAccessor = httpContextAccessor;
         }
+
+
 
         public async Task<MemberDto> Get(string username)
         {
@@ -93,9 +98,9 @@ namespace Books.API.Services
                 }
             }
 
-            return response;
+            return response;    
         }
-
+            
         public async Task<bool> UpdateUser(MemberUpdateDto memberUpdateDto)
         {
             var userName = _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
@@ -106,6 +111,29 @@ namespace Books.API.Services
 
             // No Need to call the Update function of EF. AutoTracking & mapper works for you.
             _mapper.Map(memberUpdateDto, user);
+
+            return await _unitOfWork.Complete();                                         
+        }                                                                                             
+        public async Task<bool> AddPhoto(IFormFile file)
+        {     
+            var userName = "bhatt.dotnet@gmail.com";
+
+            var user = await _unitOfWork.UserRepository.GetAsync(x => x.UserName == userName, true);
+
+            if (user == null) return false;
+
+            var result = await _photoService.AddPhotoAsync(file);
+            if (result.Error != null) return false;
+            var photo = new Photo
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
+            if (user.Photos.Count == 0) photo.IsMain = true;
+
+
+            //No Need to call the Update function of EF. AutoTracking & mapper works for you.
+            user.Photos.Add(photo);
 
             return await _unitOfWork.Complete();
 

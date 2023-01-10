@@ -1,5 +1,6 @@
 ﻿using Books.API.Entities;
 using Books.API.Models.Dto;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -21,5 +22,6 @@ namespace Books.API.Services
         Task<MemberDto> Get(string username);
 
         Task<bool> UpdateUser(MemberUpdateDto memberUpdateDto);
+        Task<bool> AddPhoto(IFormFile file);
     }
 }
